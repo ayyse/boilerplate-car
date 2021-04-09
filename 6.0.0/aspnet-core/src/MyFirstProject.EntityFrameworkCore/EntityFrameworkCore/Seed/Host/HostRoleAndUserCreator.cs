@@ -78,7 +78,7 @@ namespace MyFirstProject.EntityFrameworkCore.Seed.Host
                     Surname = "admin",
                     EmailAddress = "admin@aspnetboilerplate.com",
                     IsEmailConfirmed = false,
-                    IsActive = true
+                    IsActive = false
                 };
 
                 user.Password = new PasswordHasher<User>(new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions())).HashPassword(user, "123qwe");

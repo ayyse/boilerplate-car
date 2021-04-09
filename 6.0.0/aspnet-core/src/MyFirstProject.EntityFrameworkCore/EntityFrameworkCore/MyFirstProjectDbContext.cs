@@ -3,6 +3,7 @@ using Abp.Zero.EntityFrameworkCore;
 using MyFirstProject.Authorization.Roles;
 using MyFirstProject.Authorization.Users;
 using MyFirstProject.MultiTenancy;
+using MyFirstProject.Cars;
 
 namespace MyFirstProject.EntityFrameworkCore
 {
@@ -12,7 +13,10 @@ namespace MyFirstProject.EntityFrameworkCore
         
         public MyFirstProjectDbContext(DbContextOptions<MyFirstProjectDbContext> options)
             : base(options)
-        {
+        { 
+
         }
+        //public virtual DbSet<CarPark> CarParks { get; set; }
+        public virtual DbSet<CarEntity> CarEntities { get; set; }
     }
 }

@@ -14,6 +14,8 @@ namespace MyFirstProject.Web.Startup
         {
             return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .CaptureStartupErrors(true)
+                .UseSetting("detailedErrors", "true")
                 .Build();
         }
     }

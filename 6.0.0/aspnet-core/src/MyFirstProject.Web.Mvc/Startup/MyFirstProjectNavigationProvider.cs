@@ -23,6 +23,14 @@ namespace MyFirstProject.Web.Startup
                     )
                 ).AddItem(
                     new MenuItemDefinition(
+                        PageNames.Car,
+                        L("Car"),
+                        url: "Car",
+                        icon: "fas fa-building",
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Cars)
+                    )
+                ).AddItem(
+                    new MenuItemDefinition(
                         PageNames.Tenants,
                         L("Tenants"),
                         url: "Tenants",

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyFirstProject.EntityFrameworkCore;
 
 namespace MyFirstProject.Migrations
 {
     [DbContext(typeof(MyFirstProjectDbContext))]
-    partial class MyFirstProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210407120233_UpdatedCarParksTable")]
+    partial class UpdatedCarParksTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1540,6 +1542,27 @@ namespace MyFirstProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CarEntities");
+                });
+
+            modelBuilder.Entity("MyFirstProject.Cars.CarPark", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("ExitTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LoginTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Plaka")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CarParks");
                 });
 
             modelBuilder.Entity("MyFirstProject.MultiTenancy.Tenant", b =>

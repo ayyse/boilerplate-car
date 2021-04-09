@@ -94,6 +94,7 @@ namespace MyFirstProject.Web.Startup
                 endpoints.MapHub<AbpCommonHub>("/signalr");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("defaultWithArea", "{area}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("Car", "{controller=Car}/{action=Create}/{id?}");
             });
         }
     }

@@ -1,0 +1,45 @@
+﻿@model CarDto
+@using MyFirstProject.Car.Dto
+@{
+    ViewData["Title"] = "Create";
+    Layout = "null";
+}
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <form asp-controller="Car" asp-action="Create" method="post">
+        <div class="col-md-6 col-sm-6">
+            <div>
+                <label asp-for="Plaka">Plaka: </label>
+                <input asp-for="Plaka" class="form-control" />
+            </div>
+            <div>
+                <label asp-for="LoginTime">Login Time: </label>
+                <input asp-for="LoginTime" class="form-control" />
+            </div>
+            <div>
+                <label asp-for="ExitTime">Exit Time: </label>
+                <input asp-for="ExitTime" class="form-control" />
+            </div>
+            <div style="margin: 10px">
+                <button type="submit" class="form-control" id="add" name="submit" value="Create" style="background-color: #74d14c">Add Car</button>
+                <script type="text/javascript">
+                    $("#add").click(function Create() {
+                        swal("More than six cars are not allowed");
+                    });
+                </script>
+            </div>
+        </div>
+
+    </form>
+</body>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

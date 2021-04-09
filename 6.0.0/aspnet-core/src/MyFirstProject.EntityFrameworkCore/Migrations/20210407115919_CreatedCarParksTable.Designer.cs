@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyFirstProject.EntityFrameworkCore;
 
 namespace MyFirstProject.Migrations
 {
     [DbContext(typeof(MyFirstProjectDbContext))]
-    partial class MyFirstProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210407115919_CreatedCarParksTable")]
+    partial class CreatedCarParksTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1521,7 +1523,7 @@ namespace MyFirstProject.Migrations
                     b.ToTable("AbpUsers");
                 });
 
-            modelBuilder.Entity("MyFirstProject.Cars.CarEntity", b =>
+            modelBuilder.Entity("MyFirstProject.Cars.CarPark", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1539,7 +1541,7 @@ namespace MyFirstProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarEntities");
+                    b.ToTable("CarParks");
                 });
 
             modelBuilder.Entity("MyFirstProject.MultiTenancy.Tenant", b =>
