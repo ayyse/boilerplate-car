@@ -1521,7 +1521,7 @@ namespace MyFirstProject.Migrations
                     b.ToTable("AbpUsers");
                 });
 
-            modelBuilder.Entity("MyFirstProject.Cars.CarEntity", b =>
+            modelBuilder.Entity("MyFirstProject.Cars.CarModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1539,7 +1539,7 @@ namespace MyFirstProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarEntities");
+                    b.ToTable("CarModels");
                 });
 
             modelBuilder.Entity("MyFirstProject.MultiTenancy.Tenant", b =>

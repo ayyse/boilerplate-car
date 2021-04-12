@@ -10,8 +10,8 @@ using MyFirstProject.EntityFrameworkCore;
 namespace MyFirstProject.Migrations
 {
     [DbContext(typeof(MyFirstProjectDbContext))]
-    [Migration("20210407115919_CreatedCarParksTable")]
-    partial class CreatedCarParksTable
+    [Migration("20210412122700_CreatedCarModelMigration")]
+    partial class CreatedCarModelMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1523,7 +1523,7 @@ namespace MyFirstProject.Migrations
                     b.ToTable("AbpUsers");
                 });
 
-            modelBuilder.Entity("MyFirstProject.Cars.CarPark", b =>
+            modelBuilder.Entity("MyFirstProject.Cars.CarModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1541,7 +1541,7 @@ namespace MyFirstProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarParks");
+                    b.ToTable("CarModels");
                 });
 
             modelBuilder.Entity("MyFirstProject.MultiTenancy.Tenant", b =>

@@ -1,0 +1,44 @@
+﻿@model CarDto
+@using MyFirstProject.Car.Dto
+@{
+    ViewData["Title"] = "Details";
+    Layout = null;
+}
+
+<html>
+<body>
+    <div>
+        <div align="right" style="margin-right: 400px; margin-top: 100px">
+            <div>
+                <a type="button" style="background-color: grey; color: white; padding: 5px; border-radius: 5px" asp-controller="Car" asp-action="Update" data-id="@Model.Id">Update</a>
+                <a type="button" style="background-color: indianred; color: white; padding: 5px; border-radius: 5px" asp-controller="Car" asp-action="Delete" data-id="@Model.Id">Delete</a>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+
+        <div style="margin-top:30px; margin-left:50px">
+            <table>
+                <tr>
+                    <td style="border-bottom: 1px solid rgba(9, 198, 171, 0.8); font-size: 22px; width:900px">
+                        @Html.DisplayFor(model => model.Plaka)
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <ul>
+                    <li>
+                        <div style="margin-top: 10px">
+                            <p>Login Time : @Html.DisplayFor(model => model.LoginTime)</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="margin-top: 10px">
+                            <p>Exit Time : @Html.DisplayFor(model => model.ExitTime)</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

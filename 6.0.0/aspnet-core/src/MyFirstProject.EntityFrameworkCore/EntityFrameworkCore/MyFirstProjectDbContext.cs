@@ -16,7 +16,6 @@ namespace MyFirstProject.EntityFrameworkCore
         { 
 
         }
-        //public virtual DbSet<CarPark> CarParks { get; set; }
-        public virtual DbSet<CarEntity> CarEntities { get; set; }
+        public virtual DbSet<CarModel> CarModels { get; set; }
     }
 }

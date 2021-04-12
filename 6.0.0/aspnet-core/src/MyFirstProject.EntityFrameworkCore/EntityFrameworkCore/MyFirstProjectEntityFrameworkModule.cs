@@ -21,6 +21,7 @@ namespace MyFirstProject.EntityFrameworkCore
             if (!SkipDbContextRegistration)
             {
                 Configuration.Modules.AbpEfCore().AddDbContext<MyFirstProjectDbContext>(options =>
+                
                 {
                     if (options.ExistingConnection != null)
                     {

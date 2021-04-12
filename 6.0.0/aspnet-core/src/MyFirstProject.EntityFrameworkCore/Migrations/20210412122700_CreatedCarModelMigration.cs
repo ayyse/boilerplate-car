@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyFirstProject.Migrations
 {
-    public partial class UpdatedCarParksTable : Migration
+    public partial class CreatedCarModelMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "CarEntities",
+                name: "CarModels",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -19,14 +19,14 @@ namespace MyFirstProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CarEntities", x => x.Id);
+                    table.PrimaryKey("PK_CarModels", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CarEntities");
+                name: "CarModels");
         }
     }
 }

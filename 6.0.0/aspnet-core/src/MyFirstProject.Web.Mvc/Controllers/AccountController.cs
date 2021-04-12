@@ -115,10 +115,33 @@ namespace MyFirstProject.Web.Controllers
             return RedirectToAction("Login");
         }
 
+        //private async Task<AbpLoginResult<Tenant, User>> GetLoginResultAsync(string usernameOrEmailAddress, string password, string tenancyName)
+        //{
+        //    var loginResult = await _logInManager.LoginAsync(usernameOrEmailAddress, password, tenancyName);
+
+        //    switch (loginResult.Result)
+        //    {
+        //        case AbpLoginResultType.Success:
+        //            return loginResult;
+        //        default:
+        //            throw _abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(loginResult.Result, usernameOrEmailAddress, tenancyName);
+        //    }
+        //}
+
         private async Task<AbpLoginResult<Tenant, User>> GetLoginResultAsync(string usernameOrEmailAddress, string password, string tenancyName)
         {
             var loginResult = await _logInManager.LoginAsync(usernameOrEmailAddress, password, tenancyName);
-
+            if (loginResult.Result != AbpLoginResultType.Success)
+            {
+                var tenant = await FindPossibleTenantNameForUser(usernameOrEmailAddress);
+                if (tenant != null)
+                {
+                    using (CurrentUnitOfWork.SetTenantId(tenant.Id))
+                    {
+                        loginResult = await _logInManager.LoginAsync(usernameOrEmailAddress, password, tenant.TenancyName);
+                    }
+                }
+            }
             switch (loginResult.Result)
             {
                 case AbpLoginResultType.Success:
@@ -126,6 +149,22 @@ namespace MyFirstProject.Web.Controllers
                 default:
                     throw _abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(loginResult.Result, usernameOrEmailAddress, tenancyName);
             }
+        }
+
+        [UnitOfWork]
+        protected virtual async Task<Tenant> FindPossibleTenantNameForUser(string userNameOrEmailAddress)
+        {
+            Authorization.Users.User loginUser;
+            using (_unitOfWorkManager.Current.DisableFilter(AbpDataFilters.MayHaveTenant))
+            {
+                loginUser = await _userManager.FindByNameOrEmailAsync(userNameOrEmailAddress);
+                if (loginUser != null && loginUser.TenantId.HasValue)
+                {
+                    return await _tenantManager.FindByIdAsync(loginUser.TenantId.Value);
+
+                }
+            }
+            return null;
         }
 
         #endregion

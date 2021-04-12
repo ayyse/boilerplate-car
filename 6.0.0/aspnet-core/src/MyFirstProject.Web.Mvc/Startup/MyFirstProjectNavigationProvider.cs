@@ -25,7 +25,7 @@ namespace MyFirstProject.Web.Startup
                     new MenuItemDefinition(
                         PageNames.Car,
                         L("Car"),
-                        url: "Car",
+                        url: "Car/Index",
                         icon: "fas fa-building",
                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Cars)
                     )

@@ -5,6 +5,7 @@ using MyFirstProject.Car;
 using MyFirstProject.Car.Dto;
 using MyFirstProject.Cars;
 using MyFirstProject.Controllers;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MyFirstProject.Web.Controllers
@@ -19,7 +20,7 @@ namespace MyFirstProject.Web.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var data = await _carService.GetAllAsync();
+            List<CarDto> data = await _carService.GetAllAsync();
             return View(data);
         }
 
@@ -31,13 +32,8 @@ namespace MyFirstProject.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CarDto model)
         {
-            
-            {
-                var data = await _carService.CreateAsync(model);
-                return View("Index");
-            }
-            return View("Create");
-            
+            await _carService.CreateAsync(model);
+            return View();
         }
 
         public async Task<IActionResult> Details(int id)
@@ -56,13 +52,13 @@ namespace MyFirstProject.Web.Controllers
         public async Task<IActionResult> Update(CarDto model)
         {
             await _carService.UpdateAsync(model);
-            return View();
+            return RedirectToAction();
         }
 
         public async Task<IActionResult> Delete(CarDto model)
         {
             await _carService.DeleteAsync(model);
-            return View();
+            return RedirectToAction("Index");
         }
 
     }
