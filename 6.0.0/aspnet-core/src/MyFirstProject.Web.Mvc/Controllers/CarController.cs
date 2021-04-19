@@ -1,10 +1,12 @@
 ﻿using Abp.AspNetCore.Mvc.Authorization;
+using Abp.Web.Mvc.Alerts;
 using Microsoft.AspNetCore.Mvc;
 using MyFirstProject.Authorization;
 using MyFirstProject.Car;
 using MyFirstProject.Car.Dto;
 using MyFirstProject.Cars;
 using MyFirstProject.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,13 +16,25 @@ namespace MyFirstProject.Web.Controllers
     public class CarController : MyFirstProjectControllerBase
     {
         private readonly CarAppService _carService;
-        public CarController(CarAppService carService)
+        private readonly IAlertManager _alertManager;
+        public CarController(CarAppService carService, IAlertManager alertManager)
         {
             _carService = carService;
+            _alertManager = alertManager;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(CarDto model)
         {
             List<CarDto> data = await _carService.GetAllAsync();
+            bool isAllowedAddCar = !(data.Count > 5);
+            ViewBag.IsAllowedAddCar = isAllowedAddCar;
+            if (model.LoginTime > model.ExitTime)
+            {
+                _alertManager.Alerts.Warning("Exit time cannot be older than login time");
+            }
+            if (isAllowedAddCar == false)
+            {
+                _alertManager.Alerts.Warning("It is not allowed to add more than six cars");
+            }
             return View(data);
         }
 
@@ -34,6 +48,7 @@ namespace MyFirstProject.Web.Controllers
         {
             await _carService.CreateAsync(model);
             return RedirectToAction("Index");
+
         }
 
         public async Task<IActionResult> Details(int id)
@@ -52,7 +67,7 @@ namespace MyFirstProject.Web.Controllers
         public async Task<IActionResult> Update(CarDto model)
         {
             await _carService.UpdateAsync(model);
-            return RedirectToAction("Details");
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Delete(CarDto model)

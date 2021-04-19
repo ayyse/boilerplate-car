@@ -1,11 +1,12 @@
 ﻿using Abp.Application.Services;
 using Abp.Authorization;
 using Abp.Domain.Repositories;
-using AutoMapper;
+using Abp.ObjectMapping;
 using Microsoft.EntityFrameworkCore;
 using MyFirstProject.Authorization;
 using MyFirstProject.Car.Dto;
 using MyFirstProject.Cars;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,8 +16,8 @@ namespace MyFirstProject.Car
     public class CarAppService : AsyncCrudAppService<CarModel, CarDto, int>, ICarAppService
     {
         private readonly IRepository<CarModel, int> _carRepository;
-        private readonly IMapper _mapper;
-        public CarAppService(IRepository<CarModel, int> carRepository, IMapper mapper) : base(carRepository)
+        private readonly IObjectMapper _mapper;
+        public CarAppService(IRepository<CarModel, int> carRepository, IObjectMapper mapper) : base(carRepository)
         {
             _carRepository = carRepository;
             _mapper = mapper;
@@ -24,13 +25,16 @@ namespace MyFirstProject.Car
 
         public override async Task<CarDto> CreateAsync(CarDto input)
         {
-            var result = await _carRepository.GetAll().ToListAsync();
-            if (result.Count <= 5)
+            var result = await _carRepository.CountAsync();
+            if (result <= 5)
             {
-                var car = _mapper.Map<CarModel>(input);
-                var createdCar = await _carRepository.InsertAsync(car);
-                await CurrentUnitOfWork.SaveChangesAsync();
-                return _mapper.Map<CarDto>(createdCar);
+                if (input.LoginTime < input.ExitTime)
+                {
+                    var car = _mapper.Map<CarModel>(input);
+                    var createdCar = await _carRepository.InsertAsync(car);
+                    await CurrentUnitOfWork.SaveChangesAsync();
+                    return _mapper.Map<CarDto>(createdCar);
+                }
             }
             return input;
          }

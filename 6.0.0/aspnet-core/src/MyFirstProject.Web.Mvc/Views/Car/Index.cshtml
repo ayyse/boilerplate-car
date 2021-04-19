@@ -1,19 +1,23 @@
 ﻿@using MyFirstProject.Web.Startup
-@{ 
-    ViewBag.Title = L("Car");
-    ViewBag.CurrentPageName = PageNames.Car;
-}
+@{ ViewBag.Title = L("Car");
+    ViewBag.CurrentPageName = PageNames.Car; }
+@*  *@
 
 <body>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <div class="container">
         <div class="row">
             <div class="col-md-8">
                 <p>@DateTime.Now</p>
             </div>
-            <div class="col-md-4">
-                <a type="button" style="background-color: #74d14c; color: white; padding: 5px; border-radius: 5px;" asp-action="Create">Add Car</a>
-            </div>
+            @if (ViewBag.IsAllowedAddCar)
+            {
+                <div class="col-md-4">
+                    <a type="button" id="add" style="background-color: #74d14c; color: white; padding: 5px; border-radius: 5px;" asp-action="Create">Add Car</a>
+                </div>
+            }
+
         </div>
         <table class="table">
             <thead>
@@ -25,20 +29,21 @@
             </thead>
             @foreach (var item in Model)
             {
-                <tbody>
-                    <tr>
-                        <td>@item.Plaka</td>
-                        <td>@item.LoginTime</td>
-                        <td>@item.ExitTime</td>
-                        <td>
-                            <a type="button" style="background-color: #74d14c; color: white; padding: 5px; border-radius: 5px; margin-right: 5px" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                            <a type="button" style="background-color: #74d14c; color: white; padding: 5px; border-radius: 5px; margin-right: 5px" asp-action="Update" asp-route-id="@item.Id">Edit</a>
-                            <a type="button" style="background-color: indianred; color: white; padding: 5px; border-radius: 5px" asp-controller="Car" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+<tbody>
+    <tr>
+        <td>@item.Plaka</td>
+        <td>@item.LoginTime</td>
+        <td>@item.ExitTime</td>
+        <td>
+            <a type="button" style="background-color: #74d14c; color: white; padding: 5px; border-radius: 5px; margin-right: 5px" asp-action="Details" asp-route-id="@item.Id">Details</a>
+            <a type="button" style="background-color: #74d14c; color: white; padding: 5px; border-radius: 5px; margin-right: 5px" asp-action="Update" asp-route-id="@item.Id">Edit</a>
+            <a type="button" style="background-color: indianred; color: white; padding: 5px; border-radius: 5px" asp-controller="Car" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
 
-                        </td>
-                    </tr>
-                </tbody>
-            }
+        </td>
+    </tr>
+</tbody>
+}
         </table>
     </div>
 </body>
+

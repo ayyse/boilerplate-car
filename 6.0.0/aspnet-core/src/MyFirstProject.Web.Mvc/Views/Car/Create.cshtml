@@ -13,10 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-
     <div class="container">
         <h2>Add Your Car</h2>
         <form asp-controller="Car" asp-action="Create" method="post">
@@ -24,18 +22,18 @@
                 <label asp-for="Plaka">Plaka:</label>
                 <input asp-for="Plaka" class="form-control">
             </div>
-            <div class="form-group">
-                <label asp-for="LoginTime">Login Time:</label>
-                <input asp-for="LoginTime" class="form-control">
-            </div>
+            @*<div class="form-group">
+            <label asp-for="LoginTime">Login Time:</label>
+            <input Datetime.Now class="form-control">
+        </div>*@
             <div class="form-group">
                 <label asp-for="ExitTime">Exit Time:</label>
                 <input asp-for="ExitTime" class="form-control">
             </div>
-            @*<div class="checkbox">
-                <label><input type="checkbox" name="remember"> Remember me</label>
-            </div>*@
-            <button type="submit" class="btn btn-default">Add Car</button>
+            <div>
+                <button type="submit" class="btn btn-default" id="add">Add Car</button>
+            </div>
+
         </form>
     </div>
 

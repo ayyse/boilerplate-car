@@ -14,6 +14,10 @@ namespace MyFirstProject.Car.Dto
     [AutoMapTo(typeof(CarModel))]
     public class CarDto : EntityDto<int>
     {
+        public CarDto()
+        {
+            LoginTime = DateTime.Now;
+        }
         public string Plaka { get; set; }
         public DateTime LoginTime { get; set; }
         public DateTime ExitTime { get; set; }
