@@ -33,7 +33,7 @@ namespace MyFirstProject.Web.Controllers
         public async Task<IActionResult> Create(CarDto model)
         {
             await _carService.CreateAsync(model);
-            return View();
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Details(int id)
@@ -52,7 +52,7 @@ namespace MyFirstProject.Web.Controllers
         public async Task<IActionResult> Update(CarDto model)
         {
             await _carService.UpdateAsync(model);
-            return RedirectToAction();
+            return RedirectToAction("Details");
         }
 
         public async Task<IActionResult> Delete(CarDto model)

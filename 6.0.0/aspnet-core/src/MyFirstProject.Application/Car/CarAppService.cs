@@ -24,11 +24,16 @@ namespace MyFirstProject.Car
 
         public override async Task<CarDto> CreateAsync(CarDto input)
         {
-            var car = _mapper.Map<CarModel>(input);
-            var createdCar = await _carRepository.InsertAsync(car);
-            await CurrentUnitOfWork.SaveChangesAsync();
-            return _mapper.Map<CarDto>(createdCar);
-        }
+            var result = await _carRepository.GetAll().ToListAsync();
+            if (result.Count <= 5)
+            {
+                var car = _mapper.Map<CarModel>(input);
+                var createdCar = await _carRepository.InsertAsync(car);
+                await CurrentUnitOfWork.SaveChangesAsync();
+                return _mapper.Map<CarDto>(createdCar);
+            }
+            return input;
+         }
 
         public async Task DeleteAsync(int input)
         {
